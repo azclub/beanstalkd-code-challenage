@@ -1,0 +1,24 @@
+'use strict';
+
+const config = {};
+
+config.bs = {
+	host: 'localhost', 
+	port: 11300,
+	tube: 'tube'
+};
+
+config.mongodb = 'mongodb://127.0.0.1:27017/exchange_rate';
+
+config.exchange = {
+	successLimit: 10,
+	successDelaySec: 60,
+	failLimit: 3,
+	failDelaySec: 3,
+	// Currency data allowed in free trial
+	baseCurrency: 'EUR',
+	convertCurrencies: ['USD', 'AUD', 'CAD', 'PLN', 'MXN'],
+	apiKey: 'apiKey'
+};
+
+module.exports = config;
