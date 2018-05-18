@@ -33,10 +33,10 @@ class ExchangeRate {
 	}
 
 	static async read(currency, config) {
-		let retryTotal = {success: 0, failed: 0};
+		const retryTotal = {success: 0, failed: 0};
 		try {
 			mongoose.connect(config.mongodb);
-			retryTotal = await ExchangeRateModel.find((err, records) => {
+			await ExchangeRateModel.find({currency: currency}, (err, records) => {
 				return records.reduce((allRetry, record) => {
 					const retry = allRetry;
 					if (parseFloat(record.rate) > 0) {
@@ -47,6 +47,8 @@ class ExchangeRate {
 					return retry;
 				}, retryTotal);
 			});
+
+			Logger.log('info', retryTotal);
 
 			mongoose.connection.close();
 
