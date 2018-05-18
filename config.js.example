@@ -13,15 +13,15 @@ config.mongodb = 'mongodb://mongodb:27017/exchange_rate';
 
 config.exchange = {
 	// Total retry limit when the job successed
-	successLimit: 10, 
+	successLimit: 10,
 
 	// Delayed time to reserve the job again
-	successDelaySec: 60, 
+	successDelaySec: 60,
 
 	// Total retry limit when the job failed
-	failLimit: 3, 
+	failLimit: 3,
 
-	 // Delayed time to reserve the job again
+	// Delayed time to reserve the job again
 	failDelaySec: 3,
 
 	apiKey: process.env.EXCHANGE_API_KEY || 'apikey'
