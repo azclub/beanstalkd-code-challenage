@@ -2,22 +2,31 @@
 
 const config = {};
 
-config.bs = {
-	host: 'localhost', 
+config.bs = { // settings for beanstalk
+	host: 'localhost',
 	port: 11300,
 	tube: 'tube'
 };
 
+// Point this to your mongodb address
 config.mongodb = 'mongodb://127.0.0.1:27017/exchange_rate';
 
 config.exchange = {
-	successLimit: 10,
-	successDelaySec: 60,
-	failLimit: 3,
+	// Total retry limit when the job successed
+	successLimit: 10, 
+
+	// Delayed time to reserve the job again
+	successDelaySec: 3, 
+
+	// Total retry limit when the job failed
+	failLimit: 3, 
+
+	 // Delayed time to reserve the job again
 	failDelaySec: 3,
-	// Currency data allowed in free trial
-	baseCurrency: 'EUR',
-	convertCurrencies: ['USD', 'AUD', 'CAD', 'PLN', 'MXN'],
+
+	// Get API key in https://fixer.io/signup/free
+	// You can get exchance rate from 'EUR' to one of the followings during free trial.
+	// [USD', 'AUD', 'CAD', 'PLN', 'MXN']
 	apiKey: 'apiKey'
 };
 
