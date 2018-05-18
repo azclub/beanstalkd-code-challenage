@@ -3,20 +3,20 @@
 const config = {};
 
 config.bs = { // settings for beanstalk
-	host: 'localhost',
+	host: 'beanstalkd',
 	port: 11300,
 	tube: 'tube'
 };
 
 // Point this to your mongodb address
-config.mongodb = 'mongodb://127.0.0.1:27017/exchange_rate';
+config.mongodb = 'mongodb://mongodb:27017/exchange_rate';
 
 config.exchange = {
 	// Total retry limit when the job successed
 	successLimit: 10, 
 
 	// Delayed time to reserve the job again
-	successDelaySec: 3, 
+	successDelaySec: 60, 
 
 	// Total retry limit when the job failed
 	failLimit: 3, 
@@ -24,10 +24,7 @@ config.exchange = {
 	 // Delayed time to reserve the job again
 	failDelaySec: 3,
 
-	// Get API key in https://fixer.io/signup/free
-	// You can get exchance rate from 'EUR' to one of the followings during free trial.
-	// [USD', 'AUD', 'CAD', 'PLN', 'MXN']
-	apiKey: 'apiKey'
+	apiKey: process.env.EXCHANGE_API_KEY || 'apikey'
 };
 
 module.exports = config;

@@ -8,8 +8,7 @@
     "lint": "eslint .",
     "test:unit": "nyc mocha test/",
     "test": "npm run lint && npm run test:unit",
-    "work": "node task/work.js",
-    "demo": "beanstalkd & node task/seed.js & node task/work.js"
+    "work": "node task/work.js"
   },
   "author": "",
   "license": "ISC",

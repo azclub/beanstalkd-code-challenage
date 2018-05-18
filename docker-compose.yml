@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  beanstalkd: 
+    image: schickling/beanstalkd
+  worker: 
+    build: .
+    environment:
+      - EXCHANGE_API_KEY=${EXCHANGE_API_KEY}
+  mongodb: 
+    image: mongo
