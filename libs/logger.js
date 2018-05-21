@@ -1,17 +1,30 @@
 'use strict';
 
-const {createLogger, format, transports} = require('winston');
+const winston = require('winston');
+const CloudWatchTransport = require('winston-cloudwatch');
 
-const Logger = createLogger({
-	format: format.combine(
-		format.splat(),
-		format.simple()
-	),
+new (winston.Logger)({
 	transports: [
-		new transports.Console(),
-		new transports.File({filename: 'log/error.log', level: 'error'}),
-		new transports.File({filename: 'log/info.log', level: 'info'})
+		new (winston.transports.Console)({
+			timestamp: true,
+			colorize: true,
+		})
 	]
 });
 
-module.exports = Logger;
+if (process.env.CLOUDWATCH_ACCESS_KEY_ID && 
+	process.env.CLOUDWATCH_SECRET_ACCESS_KEY &&
+	process.env.CLOUDWATCH_REGION) {
+	winston.info('log to cloudfront');
+	const CloudWatchConfig = {
+		logGroupName: 'aftership',
+		logStreamName: 'worker',
+		awsAccessKeyId: process.env.CLOUDWATCH_ACCESS_KEY_ID,
+		awsSecretKey: process.env.CLOUDWATCH_SECRET_ACCESS_KEY,
+		awsRegion: process.env.CLOUDWATCH_REGION,
+	}
+
+	winston.add(CloudWatchTransport, CloudWatchConfig);
+}
+
+module.exports = winston;

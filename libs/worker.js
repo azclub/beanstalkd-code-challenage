@@ -15,7 +15,7 @@ class Worker {
 			});
 
 			connection.on('error', (err) => {
-				Logger.log('error', `Worker ${config.bs.tube}: ${err}`);
+				Logger.error(`Worker ${config.bs.tube}: ${err}`);
 			});
 
 			await connection.start();
@@ -30,12 +30,12 @@ class Worker {
 		try {
 			const record = await ExchangeRate.read(currency, config);
 			if (record.success >= config.exchange.successLimit) {
-				Logger.log('info', `Worker stop job schedule for currency(${currency}): success rate reatched`);
+				Logger.info(`Worker stop job schedule for currency(${currency}): success rate reatched`);
 				return 'success';
 			}
 
 			if (record.failed >= config.exchange.failLimit) {
-				Logger.log('info', `Worker stop job schedule for currency(${currency}): failed rate reatched`);
+				Logger.info(`Worker stop job schedule for currency(${currency}): failed rate reatched`);
 				return 'bury';
 			}
 
@@ -46,14 +46,14 @@ class Worker {
 			}
 			return ['release', config.exchange.successDelaySec];
 		} catch (err) {
-			Logger.log('error', err);
+			Logger.error(err);
 			return ['release', config.exchange.failDelaySec];
 		}
 	}
 
 	static start(config) {
 		Worker.client(config, async (currency, _job_info) => {
-			Logger.log('info', `Worker: start process ${currency}`);
+			Logger.info(`Worker: start process ${currency}`);
 			return Worker.process(currency, config);
 		});
 	}

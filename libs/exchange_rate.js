@@ -22,12 +22,12 @@ class ExchangeRate {
 				const rateFloat = body.rates[to];
 				const rateString = parseFloat(rateFloat).toFixed(2).toString();
 				this.rate = rateString;
-				Logger.log('info', `ExchangeRate - ${this.currency}: ${this.rate}`);
+				Logger.info(`ExchangeRate - ${this.currency}: ${this.rate}`);
 				return this.rate;
 			}
 			return '-1';
 		} catch (err) {
-			Logger.log('error', `ExchangeRate get rate exception: ${err}`);
+			Logger.error(`ExchangeRate get rate exception: ${err}`);
 			return '-1';
 		}
 	}
@@ -48,13 +48,13 @@ class ExchangeRate {
 				}, retryTotal);
 			});
 
-			Logger.log('info', retryTotal);
+			Logger.info(`${currency}: ${JSON.stringify(retryTotal)}`);
 
 			mongoose.connection.close();
 
 			return retryTotal;
 		} catch (err) {
-			Logger.log('error', err);
+			Logger.error(err);
 			mongoose.connection.close();
 			return retryTotal;
 		}
@@ -73,7 +73,7 @@ class ExchangeRate {
 			await entity.save();
 			mongoose.connection.close();
 		} catch (err) {
-			Logger.log('error', err);
+			Logger.error(err);
 		}
 	}
 }

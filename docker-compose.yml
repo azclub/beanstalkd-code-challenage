@@ -4,8 +4,11 @@ services:
   beanstalkd: 
     image: schickling/beanstalkd
   worker: 
-    build: .
+    image: helenyfung/aftership_worker
+    depends_on: 
+      - beanstalkd
+      - mongodb
     environment:
-      - EXCHANGE_API_KEY=${EXCHANGE_API_KEY}
+      EXCHANGE_API_KEY: ${EXCHANGE_API_KEY}
   mongodb: 
     image: mongo

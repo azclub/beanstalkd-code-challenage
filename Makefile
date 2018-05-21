@@ -6,3 +6,5 @@ start:
 	docker-compose up
 clean: 
 	docker-compose down
+update:
+	docker build -t helenyfung/aftership_worker . && docker push helenyfung/aftership_worker

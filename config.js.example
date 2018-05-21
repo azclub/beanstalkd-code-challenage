@@ -3,13 +3,13 @@
 const config = {};
 
 config.bs = { // settings for beanstalk
-	host: 'beanstalkd',
-	port: 11300,
-	tube: 'tube'
+	host: process.env.BEANSTALKD_HOST || 'beanstalkd',
+	port: process.env.BEANSTALKD_PORT || 11300,
+	tube: process.env.BEANSTALKD_TUBE ||'tube',
 };
 
 // Point this to your mongodb address
-config.mongodb = 'mongodb://mongodb:27017/exchange_rate';
+config.mongodb = process.env.MONGODB_URI || 'mongodb://mongodb:27017/exchange_rate';
 
 config.exchange = {
 	// Total retry limit when the job successed
@@ -24,7 +24,7 @@ config.exchange = {
 	// Delayed time to reserve the job again
 	failDelaySec: 3,
 
-	apiKey: process.env.EXCHANGE_API_KEY || 'apikey'
+	apiKey: process.env.EXCHANGE_API_KEY || 'apiKey'
 };
 
 module.exports = config;

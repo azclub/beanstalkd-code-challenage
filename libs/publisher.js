@@ -12,7 +12,7 @@ class Publisher {
 				tube: config.bs.tube
 			});
 			connection.on('error', (err) => {
-				Logger.log('error', `Producer ${config.bs.tube}: ${err}`);
+				Logger.error(`Producer ${config.bs.tube}: ${err}`);
 			});
 
 			await connection.start();
@@ -24,7 +24,7 @@ class Publisher {
 				ttr: 60
 			});
 
-			Logger.log('info', `PutJob - tube: ${config.bs.tube} payload: ${payload}`);
+			Logger.info(`PutJob - tube: ${config.bs.tube} payload: ${payload}`);
 
 			connection.stop();
 		})();
