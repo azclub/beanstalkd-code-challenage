@@ -16,15 +16,13 @@ make start
 1. Create a role on AWS with write access to `aftership` log group on CloudFront.
 2. Replace ENV variables after `-e` flag in this bootstrap script.
 3. Paste the bootstrap script in `user data` field when creating a EC2 instance.
-4. Worker reserve jobs from specified queue when the instace is live.
-
 ```
 sudo yum update -y
 sudo yum install -y docker
 sudo service docker start
 sudo docker pull helenyfung/aftership_worker
 
-docker run \
+sudo docker run \
 -e CLOUDWATCH_ACCESS_KEY_ID=_CLOUDWATCH_ACCESS_KEY_ID_ \
 -e CLOUDWATCH_SECRET_ACCESS_KEY=_CLOUDWATCH_SECRET_ACCESS_KEY_ \
 -e CLOUDWATCH_REGION=_CLOUDWATCH_REGION_ \
@@ -35,6 +33,8 @@ docker run \
 -e BEANSTALKD_TUBE=_BEANSTALKD_TUBE_ \
 --name worker helenyfung/aftership_worker
 ```
+
+4. Worker will reserve jobs from specified beanstalk server when the instace is live.
 
 ## Other Commands
 - Use `make clean` to clean up containers.
